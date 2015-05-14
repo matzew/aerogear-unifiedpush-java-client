@@ -97,7 +97,8 @@ Construct a ``` UnifiedMessage ``` using the ``` Builder ``` :
 and send it:
 
 
-``` defaultPushSender.send(unifiedMessage, () -> {
+```
+defaultPushSender.send(unifiedMessage, () -> {
         // do cool stuff
     });
 ```
