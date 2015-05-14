@@ -48,6 +48,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aerogear.bom.version>0.2.12</aerogear.bom.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencyManagement>
@@ -74,6 +75,56 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerVersion>${java.version}</compilerVersion>
+                    <fork>true</fork>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <debug>true</debug>
+                    <optimize>true</optimize>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgument>-Xlint:-options</compilerArgument>
+                    <compilerArguments>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.15</version>
+                <configuration>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <configLocation>/checkstyle-rules.xml</configLocation>
+                    <logViolationsToConsole>true</logViolationsToConsole>
+                    <violationSeverity>error</violationSeverity>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle-report</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jboss.aerogear</groupId>
+                        <artifactId>aerogear-misc</artifactId>
+                        <version>${aerogear-misc.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
 

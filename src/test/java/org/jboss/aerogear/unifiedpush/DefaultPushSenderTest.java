@@ -41,7 +41,6 @@ import javax.net.ssl.HttpsURLConnection;
 import org.jboss.aerogear.unifiedpush.exception.PushSenderException;
 import org.jboss.aerogear.unifiedpush.exception.PushSenderHttpException;
 import org.jboss.aerogear.unifiedpush.utils.HttpRequestUtil;
-import org.jboss.aerogear.unifiedpush.message.MessageResponseCallback;
 import org.jboss.aerogear.unifiedpush.message.UnifiedMessage;
 import org.junit.Before;
 import org.junit.Test;
@@ -114,14 +113,6 @@ public class DefaultPushSenderTest {
         final AtomicBoolean onCompleteCalled = new AtomicBoolean(false);
         final AtomicBoolean pushSenderHttpExceptionThrown = new AtomicBoolean(false);
 
-        MessageResponseCallback callback = new MessageResponseCallback() {
-            @Override
-            public void onComplete() {
-                onCompleteCalled.set(true);
-                latch.countDown();
-            }
-        };
-
         UnifiedMessage unifiedMessage = UnifiedMessage.withMessage()
                 .alert(ALERT_MSG)
                 .sound(DEFAULT_SOUND)
@@ -129,7 +120,11 @@ public class DefaultPushSenderTest {
                 .build();
 
         try {
-            defaultSenderClient.send(unifiedMessage, callback);
+            defaultSenderClient.send(unifiedMessage,() -> {
+                latch.countDown();
+                onCompleteCalled.set(true);
+
+            });
         } catch (PushSenderHttpException pshe) {
 
             returnedStatusList.add(pshe.getStatusCode());
@@ -156,15 +151,6 @@ public class DefaultPushSenderTest {
         final AtomicBoolean onCompleteCalled = new AtomicBoolean(false);
         final AtomicBoolean pushSenderHttpExceptionThrown = new AtomicBoolean(false);
 
-        MessageResponseCallback callback = new MessageResponseCallback() {
-            @Override
-            public void onComplete() {
-                onCompleteCalled.set(true);
-                latch.countDown();
-            }
-
-        };
-
         UnifiedMessage unifiedMessage = UnifiedMessage.withMessage()
                 .alert(ALERT_MSG)
                 .sound(DEFAULT_SOUND)
@@ -172,7 +158,11 @@ public class DefaultPushSenderTest {
                 .build();
 
         try {
-            secureSenderClient.send(unifiedMessage, callback);
+            secureSenderClient.send(unifiedMessage, () -> {
+                latch.countDown();
+                onCompleteCalled.set(true);
+
+            });
         } catch (PushSenderHttpException pshe) {
 
             returnedStatusList.add(pshe.getStatusCode());
@@ -199,14 +189,6 @@ public class DefaultPushSenderTest {
         final AtomicBoolean onCompleteCalled = new AtomicBoolean(false);
         final AtomicBoolean pushSenderExceptionThrown = new AtomicBoolean(false);
 
-        MessageResponseCallback callback = new MessageResponseCallback() {
-            @Override
-            public void onComplete() {
-                onCompleteCalled.set(true);
-                latch.countDown();
-            }
-        };
-
         UnifiedMessage unifiedMessage = UnifiedMessage.withMessage()
                 .alert(ALERT_MSG)
                 .sound(DEFAULT_SOUND)
@@ -214,7 +196,11 @@ public class DefaultPushSenderTest {
                 .build();
 
         try {
-            defaultSenderClient.send(unifiedMessage, callback);
+            defaultSenderClient.send(unifiedMessage, () -> {
+                latch.countDown();
+                onCompleteCalled.set(true);
+
+            });
         } catch (PushSenderException pse) {
 
             pushSenderExceptionThrown.set(true);
@@ -237,14 +223,6 @@ public class DefaultPushSenderTest {
         final AtomicBoolean onCompleteCalled = new AtomicBoolean(false);
         final AtomicBoolean pushSenderExceptionThrown = new AtomicBoolean(false);
 
-        MessageResponseCallback callback = new MessageResponseCallback() {
-            @Override
-            public void onComplete() {
-                onCompleteCalled.set(true);
-                latch.countDown();
-            }
-        };
-
         UnifiedMessage unifiedMessage = UnifiedMessage.withMessage()
                 .alert(ALERT_MSG)
                 .sound(DEFAULT_SOUND)
@@ -252,7 +230,11 @@ public class DefaultPushSenderTest {
                 .build();
 
         try {
-            secureSenderClient.send(unifiedMessage, callback);
+            secureSenderClient.send(unifiedMessage, () -> {
+                latch.countDown();
+                onCompleteCalled.set(true);
+
+            });
         } catch (PushSenderException pse) {
 
             pushSenderExceptionThrown.set(true);
@@ -275,14 +257,6 @@ public class DefaultPushSenderTest {
         final AtomicBoolean onCompleteCalled = new AtomicBoolean(false);
         final AtomicBoolean exceptionThrown = new AtomicBoolean(false);
 
-        MessageResponseCallback callback = new MessageResponseCallback() {
-            @Override
-            public void onComplete() {
-                onCompleteCalled.set(true);
-                latch.countDown();
-            }
-        };
-
         UnifiedMessage unifiedMessage = UnifiedMessage.withMessage()
                 .alert(ALERT_MSG)
                 .sound(DEFAULT_SOUND)
@@ -290,7 +264,11 @@ public class DefaultPushSenderTest {
                 .build();
 
         try {
-            defaultSenderClient.send(unifiedMessage, callback);
+            defaultSenderClient.send(unifiedMessage, () -> {
+                latch.countDown();
+                onCompleteCalled.set(true);
+
+            });
         } catch (Exception e) {
 
             exceptionThrown.set(true);
@@ -315,14 +293,6 @@ public class DefaultPushSenderTest {
         final AtomicBoolean pushSenderExceptionThrown = new AtomicBoolean(false);
         final List<Throwable> throwableList = new ArrayList<Throwable>(1);
 
-        MessageResponseCallback callback = new MessageResponseCallback() {
-            @Override
-            public void onComplete() {
-                onCompleteCalled.set(true);
-                latch.countDown();
-            }
-        };
-
         UnifiedMessage unifiedMessage = UnifiedMessage.withMessage()
                 .alert(ALERT_MSG)
                 .sound(DEFAULT_SOUND)
@@ -330,7 +300,11 @@ public class DefaultPushSenderTest {
                 .build();
 
         try {
-            defaultSenderClient.send(unifiedMessage,callback);
+            defaultSenderClient.send(unifiedMessage,() -> {
+                latch.countDown();
+                onCompleteCalled.set(true);
+
+            });
         } catch (PushSenderException pse) {
 
             pushSenderExceptionThrown.set(true);
@@ -354,14 +328,6 @@ public class DefaultPushSenderTest {
         final AtomicBoolean onCompleteCalled = new AtomicBoolean(false);
         final AtomicBoolean exceptionThrown = new AtomicBoolean(false);
 
-        MessageResponseCallback callback = new MessageResponseCallback() {
-            @Override
-            public void onComplete() {
-                onCompleteCalled.set(true);
-                latch.countDown();
-            }
-        };
-
         UnifiedMessage unifiedMessage = UnifiedMessage.withMessage()
                 .alert(ALERT_MSG)
                 .sound(DEFAULT_SOUND)
@@ -369,7 +335,11 @@ public class DefaultPushSenderTest {
                 .build();
 
         try {
-            secureSenderClient.send(unifiedMessage, callback);
+            secureSenderClient.send(unifiedMessage, () -> {
+                latch.countDown();
+                onCompleteCalled.set(true);
+
+            });
         } catch (Exception e) {
 
             exceptionThrown.set(true);

@@ -94,25 +94,15 @@ Construct a ``` UnifiedMessage ``` using the ``` Builder ``` :
                 .build();
 ```
 
-Create a callback
+and send it:
 
-```
- MessageResponseCallback callback = new MessageResponseCallback() {
 
-            @Override
-            public void onComplete(int statusCode) {
-              //do cool stuff
-            }
-        };
+``` defaultPushSender.send(unifiedMessage, () -> {
+        // do cool stuff
+    });
 ```
 
-Send the message
-
-
-``` defaultPushSender.send(unifiedMessage, callback); ```
-
-
-You can also omit the callback
+You can also omit the lambda
 
 
 ``` defaultPushSender.send(unifiedMessage); ```
