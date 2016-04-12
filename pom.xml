@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-parent</artifactId>
-        <version>0.2.17</version>
+        <version>0.2.21-SNAPSHOT</version>
     </parent>
 
 
@@ -47,7 +47,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <aerogear.bom.version>0.2.17</aerogear.bom.version>
+        <aerogear.bom.version>0.2.21-SNAPSHOT</aerogear.bom.version>
     </properties>
 
     <dependencyManagement>
